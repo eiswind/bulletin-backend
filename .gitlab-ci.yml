@@ -46,4 +46,4 @@ test:
   script:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
-    - "pnpm run test
+    - "pnpm run test"
