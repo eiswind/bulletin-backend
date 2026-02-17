@@ -1,0 +1,49 @@
+variables:
+  TURBO_TELEMETRY_DISABLED: 1
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+
+
+stages:
+  - prepare
+  - test
+
+build-ci-image:
+  cache: [ ]
+  stage: prepare
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - when: manual
+      allow_failure: true
+  image:
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker
+  services:
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:dind
+      alias: docker
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - cd .build-image
+    - docker build -t $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build:latest .
+    - docker push $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build:latest
+
+test:
+  image:
+    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
+    docker:
+      user: develop
+  stage: test
+  rules:
+    - changes:
+        - .gitlab-ci.yml
+        - examples/**/*
+  script:
+    - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
+    - "pnpm install --frozen-lockfile"
+    - "pnpm run test
