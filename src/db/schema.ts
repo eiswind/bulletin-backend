@@ -16,8 +16,8 @@ export const user = pgTable(
     {
         username: text('username').notNull().unique(),
         password: text('').notNull(),
-        firstname: text('firstname').notNull(),
-        lastname: text('lastname').notNull(),
+        firstname: text('firstname').default('').notNull(),
+        lastname: text('lastname').default('').notNull(),
     }
 )
 

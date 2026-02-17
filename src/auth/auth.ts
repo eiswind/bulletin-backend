@@ -1,6 +1,6 @@
 import {Elysia, t} from "elysia"
 import {dbPlugin} from "../db/plugin.js";
-import {message, user} from "../db/schema.js";
+import {user} from "../db/schema.js";
 import type {DrizzleDb} from "../db/types.js";
 import {authModel} from "./model.js";
 import {eq} from "drizzle-orm";
@@ -18,7 +18,7 @@ export const createAuthPlugin = (options: { db: DrizzleDb }) => {
                     return status(409, 'Username already taken')
                 }
 
-                const result = await db().insert(user).values({...body, firstname: '', lastname: ''}).returning()
+                const result = await db().insert(user).values(body).returning()
                 if (result && result.length === 1) {
                     return body
                 }
