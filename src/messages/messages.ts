@@ -49,7 +49,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 summary: 'Create a new message'
             }
         })
-        .put('/:id', async ({db, body, set, status, params: {id}}) => {
+        .put('/:id', async ({db, body, set, params: {id}}) => {
             const result = await db().update(message).set(body).where(eq(message.id, id)).returning()
             if (result && result.length === 1) {
                 const record = result[0]
@@ -72,7 +72,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 summary: 'Update a message'
             }
         })
-        .delete('/:id', async ({db, status, set, params: {id}}) => {
+        .delete('/:id', async ({db, set, params: {id}}) => {
             const result = await db().delete(message).where(eq(message.id, id)).returning()
             if (result && result.length === 1) {
                 set.status = 200

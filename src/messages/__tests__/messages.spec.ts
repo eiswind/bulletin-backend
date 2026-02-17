@@ -66,12 +66,12 @@ describe("Messages", () => {
 
         const rows = await db.select().from(message).execute()
         expect(rows.length).toEqual(1)
-        const record = rows[0]!!
+        const record = rows[0]
 
-        expect(record.text).toEqual(testMessage.text)
-        expect(record.likes).toEqual(testMessage.likes)
-        expect(record.id).toBeTruthy()
-        expect(record.createdAt).toBeTruthy()
+        expect(record?.text).toEqual(testMessage.text)
+        expect(record?.likes).toEqual(testMessage.likes)
+        expect(record?.id).toBeTruthy()
+        expect(record?.createdAt).toBeTruthy()
     })
 
 
@@ -82,11 +82,11 @@ describe("Messages", () => {
 
         let rows = await db.insert(message).values(testMessage).returning()
         expect(rows.length).toEqual(1)
-        const record = rows[0]!!
+        const record = rows[0]
 
 
         const response = await app
-            .handle(new Request(`http://localhost/api/messages/${record.id}`, {
+            .handle(new Request(`http://localhost/api/messages/${record?.id}`, {
                 method: 'PUT',
                 headers: [['Content-Type', 'application/json']],
                 body: JSON.stringify(updatedMessage)
@@ -98,17 +98,17 @@ describe("Messages", () => {
 
         expect(json.text).toEqual(updatedMessage.text)
         expect(json.likes).toEqual(updatedMessage.likes)
-        expect(json.id).toEqual(record.id)
-        expect(json.createdAt).toEqual(record.createdAt?.toISOString())
+        expect(json.id).toEqual(record?.id)
+        expect(json.createdAt).toEqual(record?.createdAt?.toISOString())
 
         rows = await db.select().from(message).execute()
         expect(rows.length).toEqual(1)
-        const newRecord = rows[0]!!
+        const newRecord = rows[0]
 
-        expect(newRecord.text).toEqual(updatedMessage.text)
-        expect(newRecord.likes).toEqual(updatedMessage.likes)
-        expect(newRecord.id).toEqual(record.id)
-        expect(newRecord.createdAt).toEqual(record.createdAt)
+        expect(newRecord?.text).toEqual(updatedMessage.text)
+        expect(newRecord?.likes).toEqual(updatedMessage.likes)
+        expect(newRecord?.id).toEqual(record?.id)
+        expect(newRecord?.createdAt).toEqual(record?.createdAt)
     })
 
     it('should delete a message', async () => {
@@ -117,10 +117,10 @@ describe("Messages", () => {
 
         let rows = await db.insert(message).values(testMessage).returning()
         expect(rows.length).toEqual(1)
-        const record = rows[0]!!
+        const record = rows[0]
 
         const response = await app
-            .handle(new Request(`http://localhost/api/messages/${record.id}`, {
+            .handle(new Request(`http://localhost/api/messages/${record?.id}`, {
                 method: 'DELETE'
             }))
 
