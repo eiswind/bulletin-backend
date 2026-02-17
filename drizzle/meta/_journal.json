@@ -5,8 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1771333033474,
-      "tag": "0000_flowery_abomination",
+      "when": 1771343242301,
+      "tag": "0000_natural_black_tarantula",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1771343451999,
+      "tag": "0001_young_lord_tyger",
       "breakpoints": true
     }
   ]

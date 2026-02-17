@@ -20,7 +20,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
             {
                 response: t.Array(t.Ref('MessageDTO')),
                 detail: {
-                    tags: ['messages'],
+                    tags: ['Message'],
                     operationId: 'findAllMessages',
                     summary: 'Get all messages'
                 }
@@ -44,7 +44,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 500: t.Void()
             },
             detail: {
-                tags: ['messages'],
+                tags: ['Message'],
                 operationId: 'saveMessage',
                 summary: 'Create a new message'
             }
@@ -67,7 +67,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 404: t.Void()
             },
             detail: {
-                tags: ['messages'],
+                tags: ['Message'],
                 operationId: 'updateMessage',
                 summary: 'Update a message'
             }
@@ -82,7 +82,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
             return
         }, {
             detail: {
-                tags: ['messages'],
+                tags: ['Message'],
                 operationId: 'deleteMessageById',
                 summary: 'Delete a message'
             }

@@ -1,6 +1,6 @@
 {
-  "id": "2dddace9-4f2e-4f88-8a10-dd1f070b6e1c",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "294840a1-1678-4f78-b759-1922b280eb09",
+  "prevId": "2dddace9-4f2e-4f88-8a10-dd1f070b6e1c",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -40,15 +40,15 @@
         "contact_user_user_username_fk": {
           "name": "contact_user_user_username_fk",
           "tableFrom": "contact",
-          "tableTo": "user",
           "columnsFrom": [
             "user"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "username"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -132,10 +132,10 @@
       "uniqueConstraints": {
         "user_username_unique": {
           "name": "user_username_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "username"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       },
       "policies": {},
@@ -145,10 +145,10 @@
   },
   "enums": {},
   "schemas": {},
+  "views": {},
   "sequences": {},
   "roles": {},
   "policies": {},
-  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},

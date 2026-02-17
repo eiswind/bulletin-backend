@@ -1,4 +1,4 @@
-import {bigint, pgTable, text, timestamp, uuid} from "drizzle-orm/pg-core";
+import {bigint, boolean, pgTable, text, timestamp, uuid} from "drizzle-orm/pg-core";
 
 export const message = pgTable(
     'message',
@@ -9,4 +9,24 @@ export const message = pgTable(
         likes: bigint({mode: 'number'}).notNull().default(0),
 
     }
+)
+
+export const user = pgTable(
+    'user',
+    {
+        username: text('username').notNull().unique(),
+        password: text('').notNull(),
+        firstname: text('firstname').notNull(),
+        lastname: text('lastname').notNull(),
+    }
+)
+
+export const contact = pgTable(
+    'contact',
+    {
+        id: uuid('id').notNull().defaultRandom().primaryKey(),
+        email: text('email').notNull(),
+        user: text('user').notNull().references(() => user.username, {onDelete: 'cascade'}),
+        primary: boolean('primary').notNull().default(false)
+    },
 )
