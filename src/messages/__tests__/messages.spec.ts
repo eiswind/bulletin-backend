@@ -119,15 +119,12 @@ describe("Messages", () => {
         expect(rows.length).toEqual(1)
         const record = rows[0]!!
 
-
         const response = await app
             .handle(new Request(`http://localhost/api/messages/${record.id}`, {
                 method: 'DELETE'
             }))
 
         expect(response.status).toEqual(200)
-
-
 
         rows = await db.select().from(message).execute()
         expect(rows.length).toEqual(0)

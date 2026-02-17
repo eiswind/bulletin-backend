@@ -39,10 +39,6 @@ test:
     docker:
       user: develop
   stage: test
-  rules:
-    - changes:
-        - .gitlab-ci.yml
-        - examples/**/*
   script:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
