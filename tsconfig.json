@@ -45,7 +45,7 @@
     "node_modules",
     "dist",
     "__tests__",
-    "drizzle.config.ts"
+    "*.config.ts"
 
   ]
 }
