@@ -1,7 +1,7 @@
 import {migrate} from "drizzle-orm/pglite/migrator";
 import {drizzle} from "drizzle-orm/pglite";
-import {createApp} from "./app";
-import {baseDir} from "./basedir";
+import {createApp} from "./app.js";
+import {baseDir} from "./basedir.js";
 
 
 export const database = drizzle(`${baseDir}/../__data__`);

@@ -1,8 +1,8 @@
 import {Elysia} from "elysia";
 import {node} from "@elysiajs/node";
-import openapi from "@elysiajs/openapi";
-import type {DrizzleDb} from "./db/types";
-import {createMessagesPlugin} from "./messages/messages";
+import {openapi} from "@elysiajs/openapi";
+import type {DrizzleDb} from "./db/types.js";
+import {createMessagesPlugin} from "./messages/messages.js";
 
 
 export const createApp = (options: { db: DrizzleDb }) => {

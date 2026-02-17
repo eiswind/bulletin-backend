@@ -1,8 +1,8 @@
-import Elysia, { t } from "elysia"
-import {dbPlugin} from "../db/plugin";
-import {message} from "../db/schema";
-import type {DrizzleDb} from "../db/types";
-import {messageModel} from "./model";
+import {Elysia,  t } from "elysia"
+import {dbPlugin} from "../db/plugin.js";
+import {message} from "../db/schema.js";
+import type {DrizzleDb} from "../db/types.js";
+import {messageModel} from "./model.js";
 
 
 export const createMessagesPlugin = (options: { db: DrizzleDb }) => {

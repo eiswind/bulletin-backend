@@ -2,10 +2,10 @@ import {afterEach, beforeAll, describe, expect, it} from 'vitest'
 import {migrate} from "drizzle-orm/pglite/migrator";
 import {drizzle} from "drizzle-orm/pglite";
 
-import {message} from "../../db/schema";
-import type {DrizzleDb} from "../../db/types";
-import {createApp} from "../../app";
-import {baseDir} from "../../basedir";
+import {message} from "../../db/schema.js";
+import type {DrizzleDb} from "../../db/types.js";
+import {createApp} from "../../app.js";
+import {baseDir} from "../../basedir.js";
 
 
 describe("Messages", () => {
