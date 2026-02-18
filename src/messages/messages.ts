@@ -3,7 +3,7 @@ import {dbPlugin} from "../db/plugin.js";
 import {message} from "../db/schema.js";
 import type {DrizzleDb} from "../db/types.js";
 import {messageModel} from "./model.js";
-import {eq} from "drizzle-orm";
+import {desc, eq} from "drizzle-orm";
 
 
 export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
@@ -13,7 +13,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
         .use(messageModel)
         .get('',
             async ({db, status}) => {
-                const rows = await db().select().from(message)
+                const rows = await db().select().from(message).orderBy(desc(message.createdAt)).execute()
                 const isoDateRows = rows.map(r => ({...r, createdAt: r.createdAt?.toISOString()}))
                 return status(200, isoDateRows)
             },
