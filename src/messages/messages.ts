@@ -49,8 +49,8 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 summary: 'Create a new message'
             }
         })
-        .put('/:id', async ({db, body, status,  params: {id}}) => {
-            const result = await db().update(message).set(body).where(eq(message.id, id)).returning()
+        .put('/:messageId', async ({db, body, status,  params: {messageId}}) => {
+            const result = await db().update(message).set(body).where(eq(message.id, messageId)).returning()
             if (result && result.length === 1) {
                 const record = result[0]
                 if (record) {
@@ -72,8 +72,8 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 summary: 'Update a message'
             }
         })
-        .delete('/:id', async ({db, status, params: {id}}) => {
-            const result = await db().delete(message).where(eq(message.id, id)).returning()
+        .delete('/:messageId', async ({db, status, params: {messageId}}) => {
+            const result = await db().delete(message).where(eq(message.id, messageId)).returning()
             if (result && result.length === 1) {
                 return status(200, 'Message deleted')
             } else {
