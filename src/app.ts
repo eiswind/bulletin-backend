@@ -19,7 +19,8 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
                     title: 'The Bulletin Board API',
                     description: 'Handle with care',
                     version: '1.0.0'
-                }
+                },
+
             }
         }
         :
@@ -30,9 +31,12 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
                     description: 'Handle with care',
                     version: '1.0.0'
                 },
+                security : [ {
+                    bearer : [ ]
+                } ],
                 components: {
                     securitySchemes: {
-                        bearerAuth: {
+                        bearer: {
                             type: 'http',
                             scheme: 'bearer',
                             bearerFormat: 'JWT'
