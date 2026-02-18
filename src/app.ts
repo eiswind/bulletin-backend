@@ -1,6 +1,6 @@
 import {Elysia} from "elysia";
 import {node} from "@elysiajs/node";
-import {openapi} from "@elysiajs/openapi";
+import {type ElysiaOpenAPIConfig, openapi} from "@elysiajs/openapi";
 import type {DrizzleDb} from "./db/types.js";
 import {createMessagesPlugin} from "./messages/messages.js";
 import {createAuthPlugin} from "./auth/auth.js";
@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) => {
 
 
-    const openapispec = basic ?
+    const openapispec: ElysiaOpenAPIConfig = basic ?
         {
             documentation: {
                 info: {
@@ -32,7 +32,7 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
                     version: '1.0.0'
                 },
                 security : [ {
-                    bearer : [ ]
+                    bearer : []
                 } ],
                 components: {
                     securitySchemes: {
@@ -44,7 +44,7 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
                     }
                 }
             }
-        } as const
+        }
 
 
     const base = new Elysia({adapter: node()})

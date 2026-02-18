@@ -45,6 +45,8 @@
     "node_modules",
     "dist",
     "__tests__",
+    "__openapi__",
+    "__data__",
     "*.config.ts"
 
   ]
