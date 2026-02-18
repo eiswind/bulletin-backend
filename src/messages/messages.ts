@@ -26,6 +26,26 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 }
             }
         )
+        .get('/:messageId',
+            async ({db, status, params: {messageId}}) => {
+                const rows = await db().select().from(message).where(eq(message.id, messageId)).execute()
+                const isoDateRows = rows.map(r => ({...r, createdAt: r.createdAt?.toISOString()}))
+                const result = isoDateRows[0]
+                if (!result) return status(404, 'Message not found')
+                return status(200, result)
+            },
+            {
+                response: {
+                    200: 'MessageDTO',
+                    404: t.String()
+                },
+                detail: {
+                    tags: ['Message'],
+                    operationId: 'findMessageById',
+                    summary: 'Get all messages'
+                }
+            }
+        )
         .post('', async ({db, body, status}) => {
             const result = await db().insert(message).values(body).returning()
             if (result && result.length === 1) {
@@ -49,7 +69,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 summary: 'Create a new message'
             }
         })
-        .put('/:messageId', async ({db, body, status,  params: {messageId}}) => {
+        .put('/:messageId', async ({db, body, status, params: {messageId}}) => {
             const result = await db().update(message).set(body).where(eq(message.id, messageId)).returning()
             if (result && result.length === 1) {
                 const record = result[0]

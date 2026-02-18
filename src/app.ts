@@ -31,9 +31,9 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
                     description: 'Handle with care',
                     version: '1.0.0'
                 },
-                security : [ {
-                    bearer : []
-                } ],
+                security: [{
+                    bearer: []
+                }],
                 components: {
                     securitySchemes: {
                         bearer: {
