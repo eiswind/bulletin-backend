@@ -13,7 +13,7 @@ RUN apt-get update && \
     echo "deb [arch=amd64] https://apt.bell-sw.com/ stable main" | tee /etc/apt/sources.list.d/bellsoft.list && \
     curl -sL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get update && \
-    apt-get install -yq nodejs $JAVA_PACKAGE &&
+    apt-get install -yq nodejs $JAVA_PACKAGE
 RUN corepack enable && corepack prepare pnpm@latest --activate
 RUN apt-get clean
 
