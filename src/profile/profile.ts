@@ -13,7 +13,7 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
         .use(dbPlugin(options.db))
         .use(profileModel)
         .get('/:username',
-            async ({db, set, status, params: {username}}) => {
+            async ({db, status, params: {username}}) => {
                 const profileResult = await db().select({
                     username: user.username,
                     firstname: user.firstname,
