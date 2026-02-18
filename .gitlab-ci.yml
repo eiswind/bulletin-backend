@@ -70,10 +70,10 @@ openapi:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
     - "pnpm run generate:openapi"
-    - "cd $CI_PROJECT_DIR/__openapi__/angular-client
+    - "cd $CI_PROJECT_DIR/__openapi__/angular-client"
     - "pnpm install --frozen-lockfile"
     - "pnpm run build"
-    - "cd $CI_PROJECT_DIR/__openapi__/fetch-client
+    - "cd $CI_PROJECT_DIR/__openapi__/fetch-client"
     - "pnpm install --frozen-lockfile"
     - "pnpm run build"
   artifacts:
