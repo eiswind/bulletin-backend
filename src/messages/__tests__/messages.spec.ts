@@ -6,17 +6,20 @@ import {message} from "../../db/schema.js";
 import type {DrizzleDb} from "../../db/types.js";
 import {createApp} from "../../app.js";
 import {baseDir} from "../../basedir.js";
-
+import jwt from "jsonwebtoken";
 
 describe("Messages", () => {
 
     let db: DrizzleDb
     let app: ReturnType<typeof createApp>;
+    let token: string;
 
     beforeAll(async () => {
         db = drizzle()
         await migrate(db, {migrationsFolder: `${baseDir}/../drizzle`})
         app = createApp({db})
+
+        token = jwt.sign({sub: 'user'}, 'verysecret')
     })
 
     afterEach(async () =>
@@ -30,7 +33,9 @@ describe("Messages", () => {
         await db.insert(message).values(testMessage).execute()
 
         const response = await app
-            .handle(new Request('http://localhost/api/messages'))
+            .handle(new Request('http://localhost/api/messages', {
+                headers: [['Authorization', `Bearer ${token}`]]
+            }))
 
         expect(response.status).toEqual(200)
 
@@ -44,6 +49,17 @@ describe("Messages", () => {
 
     })
 
+    it('should fail on wrong token', async () => {
+
+        const wrongtoken = jwt.sign({sub: 'user'}, 'wrong')
+        const response = await app
+            .handle(new Request('http://localhost/api/messages', {
+                headers: [['Authorization', `Bearer ${wrongtoken}`]]
+            }))
+
+        expect(response.status).toEqual(401)
+    })
+
     it('should save a message', async () => {
 
         const testMessage = {text: 'hello world', likes: 0}
@@ -51,7 +67,10 @@ describe("Messages", () => {
         const response = await app
             .handle(new Request('http://localhost/api/messages', {
                 method: 'POST',
-                headers: [['Content-Type', 'application/json']],
+                headers: [
+                    ['Content-Type', 'application/json'],
+                    ['Authorization', `Bearer ${token}`]
+                ],
                 body: JSON.stringify(testMessage)
             }))
 
@@ -88,7 +107,10 @@ describe("Messages", () => {
         const response = await app
             .handle(new Request(`http://localhost/api/messages/${record?.id}`, {
                 method: 'PUT',
-                headers: [['Content-Type', 'application/json']],
+                headers: [
+                    ['Content-Type', 'application/json'],
+                    ['Authorization', `Bearer ${token}`]
+                ],
                 body: JSON.stringify(updatedMessage)
             }))
 
@@ -121,7 +143,10 @@ describe("Messages", () => {
 
         const response = await app
             .handle(new Request(`http://localhost/api/messages/${record?.id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: [
+                    ['Authorization', `Bearer ${token}`]
+                ],
             }))
 
         expect(response.status).toEqual(200)
