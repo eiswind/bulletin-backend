@@ -61,11 +61,6 @@ openapi:
     docker:
       user: develop
   stage: openapi
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: always
-    - when: manual
-      allow_failure: true
   needs:
     - test
   cache:

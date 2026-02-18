@@ -12,8 +12,8 @@ export const messageDTO = t.Object({
 
 
 export const createOrEditMessageDTO = t.Object({
-    text: t.String({readOnly: true}),
-    likes: t.Number({readOnly: true})
+    text: t.String(),
+    likes: t.Number()
 })
 
 
