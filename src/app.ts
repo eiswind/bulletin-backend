@@ -9,7 +9,6 @@ import {bearer} from "@elysiajs/bearer";
 import jwt from "jsonwebtoken";
 
 
-
 export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) => {
 
 
@@ -45,10 +44,10 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
 
 
     const base = new Elysia({adapter: node()})
-        .onError(({ error }) => {
+        .onError(({error}) => {
             console.error(error)
             return new Response(error.toString())
-        } )
+        })
         .use(openapi(openapispec))
 
     if (!basic) {
@@ -77,7 +76,7 @@ const createSecureApi = (options: { db: DrizzleDb }) => {
                     if (bearer == null) return status(401, 'No bearer token provided')
                     try {
                         jwt.verify(bearer, 'verysecret')
-                    } catch (e) {
+                    } catch {
                         return status(401, 'Invalid bearer token')
                     }
 
