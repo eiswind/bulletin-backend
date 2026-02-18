@@ -1,0 +1,33 @@
+{
+  "name": "{{{npmName}}}",
+  "version": "{{{npmVersion}}}",
+  "description": "OpenAPI client for {{{npmName}}}",
+  "author": "OpenAPI-Generator Contributors",
+  "keywords": [
+    "openapi-client",
+    "openapi-generator"
+  ],
+  "license": "Unlicense",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json"
+  },
+  "peerDependencies": {
+    "@angular/core": "^{{ngVersion}}",
+    "rxjs": "~7.8.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^{{ngVersion}}",
+    "@angular/compiler": "^{{ngVersion}}",
+    "@angular/compiler-cli": "^{{ngVersion}}",
+    "@angular/core": "^{{ngVersion}}",
+    "@angular/platform-browser": "^{{ngVersion}}",
+    "ng-packagr": "^{{ngVersion}}",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "~7.8.0",
+    "typescript": "~5.9.0"
+  }{{#npmRepository}},
+  "publishConfig": {
+    "registry": "{{{npmRepository}}}"
+  }
+{{/npmRepository}}
+}

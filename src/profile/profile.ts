@@ -13,20 +13,19 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
         .use(dbPlugin(options.db))
         .use(profileModel)
         .get('/:username',
-            async ({db, set, params: {username}}) => {
+            async ({db, set, status, params: {username}}) => {
                 const profileResult = await db().select({
                     username: user.username,
                     firstname: user.firstname,
                     lastname: user.lastname
                 }).from(user).where(eq(user.username, username)).execute()
                 if (!profileResult || profileResult.length === 0) {
-                    set.status = 404
-                    return
+                    return status(404, 'User not found')
                 }
                 const profileUser = profileResult[0]
                 if (!profileUser) {
-                    set.status = 404
-                    return
+
+                    return status(404, 'User not found')
                 }
                 const contactsResult = await db().select({
                     email: contact.email,
@@ -37,7 +36,7 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
             {
                 response: {
                     200: 'ProfileDTO',
-                    404: t.Void(),
+                    404: t.String(),
                 }
                 ,
                 detail: {
@@ -48,7 +47,7 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
             }
         )
         .put('/:username',
-            async ({db, set, body, params: {username}},) => {
+            async ({db, status, body, params: {username}},) => {
 
                 return await db().transaction(async (tx) => {
                     const profileResult = await tx.update(user).set({
@@ -57,8 +56,7 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
                     }).where(eq(user.username, username)).returning()
                     const profileUser = profileResult[0]
                     if (!profileUser) {
-                        set.status = 404
-                        return
+                        return status(404, 'User not found')
                     }
                     await tx.delete(contact).where(eq(contact.user, username)).execute()
                     for (const c of body.contacts) {
@@ -71,7 +69,7 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
                 body: 'ProfileDTO',
                 response: {
                     200: 'ProfileDTO',
-                    404: t.Void(),
+                    404: t.String(),
                 }
                 ,
                 detail: {

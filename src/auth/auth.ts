@@ -13,7 +13,7 @@ export const createAuthPlugin = (options: { db: DrizzleDb }) => {
         .use(dbPlugin(options.db))
         .use(authModel)
         .post('/register',
-            async ({db, set, status, body}) => {
+            async ({db, status, body}) => {
                 const existingUser = await db().select().from(user).where(eq(user.username, body.username)).execute()
                 if (existingUser && existingUser.length > 0) {
                     return status(409, 'Username already taken')
@@ -24,15 +24,14 @@ export const createAuthPlugin = (options: { db: DrizzleDb }) => {
                 if (result && result.length === 1) {
                     return status(201, body)
                 }
-                set.status = 500
-                return
+               return status(500, 'Something went wrong')
             },
             {
                 body: 'UserDTO',
                 response: {
                     201: 'UserDTO',
                     409: t.String(),
-                    500: t.Void()
+                    500: t.String()
                 }
                 ,
                 detail: {
@@ -77,19 +76,18 @@ export const createAuthPlugin = (options: { db: DrizzleDb }) => {
             }
         )
         .delete('/:id',
-            async ({db, params: {id}, set}) => {
+            async ({db, params: {id}, status}) => {
                 const result = await db().delete(user).where(eq(user.username, id)).returning()
                 if (result && result.length === 1) {
-                    set.status = 200
+                    return status(200, 'User deleted')
                 } else {
-                    set.status = 404
+                    return status(404, 'User not found')
                 }
-                return
             },
             {
                 response: {
-                    200: t.Void(),
-                    404: t.Void()
+                    200: t.String(),
+                    404: t.String()
                 }
                 ,
                 detail: {

@@ -1,0 +1,38 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+
+  "generator-cli": {
+    "version": "7.20.0",
+    "generators": {
+      "angular": {
+        "generatorName": "typescript-angular",
+        "output": "#{cwd}/__openapi__/angular-client",
+        "inputSpec": "#{cwd}/__openapi__/openapi.json",
+        "skipValidateSpec": true,
+        "templateDir": "#{cwd}/openapi/templates",
+        "additionalProperties": {
+          "ngVersion": "21.0.0",
+          "npmName": "@eiswind-training-packages/bulletin-api-angular-client",
+          "npmVersion": "21.1.0",
+          "fileNaming": "kebab-case",
+          "npmRepository": "https://git.eiswind.de/api/v4/projects/170/packages/npm/",
+          "snapshot": true
+        }
+      },
+      "fetch": {
+        "generatorName": "typescript-fetch",
+        "output": "#{cwd}/__openapi__/fetch-client",
+        "inputSpec": "#{cwd}/__openapi__/openapi.json",
+        "skipValidateSpec": true,
+        "additionalProperties": {
+          "npmName": "@eiswind-training-packages/bulletin-api-fetch-client",
+          "npmVersion": "1.1.0",
+          "fileNaming": "kebab-case",
+          "npmRepository": "https://git.eiswind.de/api/v4/projects/170/packages/npm/",
+          "snapshot": true
+        }
+      }
+    }
+  }
+}

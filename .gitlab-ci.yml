@@ -13,6 +13,8 @@ workflow:
 stages:
   - prepare
   - test
+  - openapi
+
 
 build-ci-image:
   cache: [ ]
@@ -39,11 +41,40 @@ test:
     docker:
       user: develop
   stage: test
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .pnpm-store/
   script:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
     - "pnpm run lint"
     - "pnpm run test"
+    - "pnpm run build"
+  artifacts:
+    paths:
+      - '__openapi__'
+
+openapi:
+  image:
+    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
+    docker:
+      user: develop
+  stage: openapi
+  dependencies: ['test']
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .pnpm-store/
+  script:
+    - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
+    - "pnpm install --frozen-lockfile"
+    - "pnpm run generate:openapi"
+    - "cd $CI_PROJECT_DIR/__openapi__/angular-client
+    - "pnpm install --frozen-lockfile"
+    - "pnpm run build"
+    - "cd $CI_PROJECT_DIR/__openapi__/fetch-client
+    - "pnpm install --frozen-lockfile"
     - "pnpm run build"
   artifacts:
     paths:

@@ -10,7 +10,8 @@
     "start": "NODE_ENV=production node dist/server.js",
     "test": "vitest",
     "lint": "eslint",
-    "db:generate": "drizzle-kit generate",
+    "generate:db": "drizzle-kit generate",
+    "generate:openapi": "openapi-generator-cli generate",
     "clean": "rm -rf node_modules dist"
   },
   "keywords": [],
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@openapitools/openapi-generator-cli": "^2.29.0",
     "drizzle-kit": "^0.31.9",
     "eslint": "^10.0.0",
     "globals": "^17.3.0",

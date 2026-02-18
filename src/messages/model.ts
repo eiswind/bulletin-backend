@@ -3,7 +3,6 @@ import {Elysia, t} from "elysia";
 export const messageDTO = t.Object({
     text: t.String({readOnly: true}),
     createdAt: t.Optional(t.String({
-        required: false,
         format: 'date-time',
         readOnly: true
     })),
