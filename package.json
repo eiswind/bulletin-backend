@@ -11,7 +11,7 @@
     "test": "vitest",
     "lint": "eslint",
     "generate:db": "drizzle-kit generate",
-    "generate:open": "openapi-generator-cli generate",
+    "generate:openapi": "openapi-generator-cli generate",
     "clean": "rm -rf node_modules dist"
   },
   "keywords": [],
