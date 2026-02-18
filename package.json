@@ -17,7 +17,7 @@
   "author": "",
   "type": "module",
   "license": "ISC",
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.29.3",
   "dependencies": {
     "@electric-sql/pglite": "^0.3.15",
     "@elysiajs/bearer": "^1.4.3",
