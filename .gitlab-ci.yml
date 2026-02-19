@@ -57,6 +57,7 @@ test:
       - '__openapi__'
       - 'dist'
       - 'drizzle'
+      - 'node_modules'
 
 openapi:
   image:
@@ -108,31 +109,7 @@ publish:
     - "pnpm publish --tag beta"
 
 
-production-build:
-  image:
-    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
-    docker:
-      user: develop
-  stage: docker
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: always
-    - when: manual
-      allow_failure: true
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - .pnpm-store/
-  script:
-    - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
-    - "pnpm install --frozen-lockfile"
-    - "pnpm run build"
-  artifacts:
-    paths:
-      - '__openapi__'
-      - 'dist'
-      - 'drizzle'
-      - 'node_modules'
+
 
 docker-image:
   cache: [ ]
@@ -143,7 +120,7 @@ docker-image:
     - when: manual
       allow_failure: true
   needs:
-    - production-build
+    - test
   image:
     name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:cli
   services:
