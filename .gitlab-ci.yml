@@ -128,5 +128,5 @@ docker-image:
       alias: docker
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/training/bulletin-backend/bulletin-backend-deploy:latest .
-    - docker push $CI_REGISTRY/training/bulletin-backend/bulletin-backend-deploy:latest
+    - docker build -t $CI_REGISTRY/training/bulletin-backend/bulletin-test-backend-elysia:latest .
+    - docker push $CI_REGISTRY/training/bulletin-backend/bulletin-test-backend-elysia:latest
