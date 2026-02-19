@@ -75,21 +75,16 @@ export const createAuthPlugin = (options: { db: DrizzleDb }) => {
                 }
             }
         )
-        .delete('/:id',
-            async ({db, params: {id}, status}) => {
-                const result = await db().delete(user).where(eq(user.username, id)).returning()
+        .delete('/:username',
+            async ({db, params: {username}, set}) => {
+                const result = await db().delete(user).where(eq(user.username, username)).returning()
                 if (result && result.length === 1) {
-                    return status(200, 'User deleted')
+                    set.status = 200
                 } else {
-                    return status(404, 'User not found')
+                    set.status = 404
                 }
             },
             {
-                response: {
-                    200: t.String(),
-                    404: t.String()
-                }
-                ,
                 detail: {
                     tags: ['Auth'],
                     operationId: 'deleteUser',

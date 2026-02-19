@@ -92,18 +92,14 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 summary: 'Update a message'
             }
         })
-        .delete('/:messageId', async ({db, status, params: {messageId}}) => {
+        .delete('/:messageId', async ({db, set, params: {messageId}}) => {
             const result = await db().delete(message).where(eq(message.id, messageId)).returning()
             if (result && result.length === 1) {
-                return status(200, 'Message deleted')
+                set.status = 200
             } else {
-                return status(404, 'Message not found')
+                set.status = 404
             }
         }, {
-            response: {
-                200: t.String(),
-                404: t.String()
-            },
             detail: {
                 tags: ['Message'],
                 operationId: 'deleteMessageById',

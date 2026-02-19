@@ -7,6 +7,7 @@ import {createAuthPlugin} from "./auth/auth.js";
 import {createProfilePlugin} from "./profile/profile.js";
 import {bearer} from "@elysiajs/bearer";
 import jwt from "jsonwebtoken";
+import {logger} from "@bogeychan/elysia-logger";
 
 
 export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) => {
@@ -48,10 +49,17 @@ export const createApp = (options: { db: DrizzleDb }, basic: boolean = false) =>
 
 
     const base = new Elysia({adapter: node()})
-        .onError(({error}) => {
-            console.error(error)
-            return new Response(error.toString())
-        })
+        .use(
+            logger({
+                level: 'info',
+                transport: {
+                    target: "pino-pretty",
+                    options: {
+                        colorize: true,
+                    },
+                },
+            })
+        )
         .use(openapi(openapispec))
 
     if (!basic) {
