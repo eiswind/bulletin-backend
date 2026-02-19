@@ -113,7 +113,7 @@ production-build:
     name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
     docker:
       user: develop
-  stage: test
+  stage: docker
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: always
