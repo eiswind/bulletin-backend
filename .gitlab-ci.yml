@@ -14,6 +14,7 @@ stages:
   - prepare
   - test
   - openapi
+  - docker
 
 
 build-ci-image:
@@ -25,7 +26,7 @@ build-ci-image:
     - when: manual
       allow_failure: true
   image:
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:cli
   services:
     - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:dind
       alias: docker
@@ -54,6 +55,8 @@ test:
   artifacts:
     paths:
       - '__openapi__'
+      - 'dist'
+      - 'drizzle'
 
 openapi:
   image:
@@ -61,6 +64,11 @@ openapi:
     docker:
       user: develop
   stage: openapi
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - when: manual
+      allow_failure: true
   needs:
     - test
   cache:
@@ -98,3 +106,50 @@ publish:
     - "pnpm publish --tag beta"
     - "cd $CI_PROJECT_DIR/__openapi__/fetch-client"
     - "pnpm publish --tag beta"
+
+
+production-build:
+  image:
+    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
+    docker:
+      user: develop
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - when: manual
+      allow_failure: true
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .pnpm-store/
+  script:
+    - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
+    - "pnpm install --frozen-lockfile"
+    - "pnpm run build"
+  artifacts:
+    paths:
+      - '__openapi__'
+      - 'dist'
+      - 'drizzle'
+      - 'node_modules'
+
+docker-image:
+  cache: [ ]
+  stage: docker
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - when: manual
+      allow_failure: true
+  needs:
+    - production-build
+  image:
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:cli
+  services:
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:dind
+      alias: docker
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/training/bulletin-backend/bulletin-backend-deploy:latest .
+    - docker push $CI_REGISTRY/training/bulletin-backend/bulletin-backend-deploy:latest
