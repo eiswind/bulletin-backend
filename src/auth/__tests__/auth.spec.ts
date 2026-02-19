@@ -115,7 +115,7 @@ describe("Auth", () => {
                 method: 'DELETE'
             }))
 
-        expect(response.status).toEqual(200)
+        expect(response.status).toEqual(204)
 
         const result = await db.select().from(user).where(eq(user.username, testUser.username)).execute()
         expect(result.length).toEqual(0)

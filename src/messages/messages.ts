@@ -95,7 +95,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
         .delete('/:messageId', async ({db, set, params: {messageId}}) => {
             const result = await db().delete(message).where(eq(message.id, messageId)).returning()
             if (result && result.length === 1) {
-                set.status = 200
+                set.status = 204
             } else {
                 set.status = 404
             }

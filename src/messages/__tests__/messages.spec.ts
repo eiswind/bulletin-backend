@@ -149,7 +149,7 @@ describe("Messages", () => {
                 ],
             }))
 
-        expect(response.status).toEqual(200)
+        expect(response.status).toEqual(204)
 
         rows = await db.select().from(message).execute()
         expect(rows.length).toEqual(0)

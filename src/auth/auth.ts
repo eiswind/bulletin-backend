@@ -79,7 +79,7 @@ export const createAuthPlugin = (options: { db: DrizzleDb }) => {
             async ({db, params: {username}, set}) => {
                 const result = await db().delete(user).where(eq(user.username, username)).returning()
                 if (result && result.length === 1) {
-                    set.status = 200
+                    set.status = 204
                 } else {
                     set.status = 404
                 }
