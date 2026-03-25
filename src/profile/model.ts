@@ -2,7 +2,10 @@ import {Elysia, t} from "elysia";
 
 export const contactDTO = t.Object({
     email: t.String(),
-    primary: t.Boolean()
+    primary: t.Boolean(),
+    phoneAllowed: t.Boolean(),
+    phoneCountryCode: t.String(),
+    phoneNumber: t.String(),
 })
 
 export const profileDTO = t.Object({

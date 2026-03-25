@@ -34,7 +34,13 @@ describe("Profile", () => {
             firstname: 'John',
             lastname: 'Doe',
             contacts: [
-                {email: 'email@test.de', primary: true},
+                {
+                    email: 'email@test.de',
+                    primary: true,
+                    phoneAllowed: true,
+                    phoneCountryCode: '+49',
+                    phoneNumber: '1234567890'
+                },
             ]
         }
 
@@ -68,7 +74,14 @@ describe("Profile", () => {
 
     it('should read a profile', async () => {
 
-        const testContact = {user: 'user', email: 'test@test.de', primary: true}
+        const testContact = {
+            user: 'user',
+            email: 'test@test.de',
+            primary: true,
+            phoneAllowed: true,
+            phoneCountryCode: '+49',
+            phoneNumber: '1234567890'
+        }
 
         await db.insert(contact).values(testContact).execute()
         await db.update(user).set({

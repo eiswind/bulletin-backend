@@ -27,6 +27,9 @@ export const contact = pgTable(
         id: uuid('id').notNull().defaultRandom().primaryKey(),
         email: text('email').notNull(),
         user: text('user').notNull().references(() => user.username, {onDelete: 'cascade'}),
-        primary: boolean('primary').notNull().default(false)
+        primary: boolean('primary').notNull().default(false),
+        phoneAllowed: boolean('phone_allowed').notNull().default(false),
+        phoneCountryCode: text('phone_country_code').notNull().default('+49'),
+        phoneNumber: text('phone_number').notNull().default(''),
     },
 )
