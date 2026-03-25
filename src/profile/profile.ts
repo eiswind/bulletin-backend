@@ -29,7 +29,10 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
                 }
                 const contactsResult = await db().select({
                     email: contact.email,
-                    primary: contact.primary
+                    primary: contact.primary,
+                    phoneAllowed: contact.phoneAllowed,
+                    phoneCountryCode: contact.phoneCountryCode,
+                    phoneNumber: contact.phoneNumber,
                 }).from(contact).where(eq(contact.user, username)).execute()
                 return {...profileUser, contacts: contactsResult}
             },
