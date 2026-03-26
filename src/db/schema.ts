@@ -18,6 +18,9 @@ export const user = pgTable(
         password: text('').notNull(),
         firstname: text('firstname').default('').notNull(),
         lastname: text('lastname').default('').notNull(),
+        phoneAllowed: boolean('phone_allowed').notNull().default(false),
+        phoneCountryCode: text('phone_country_code').notNull().default('+49'),
+        phoneNumber: text('phone_number').notNull().default(''),
     }
 )
 
@@ -28,8 +31,5 @@ export const contact = pgTable(
         email: text('email').notNull(),
         user: text('user').notNull().references(() => user.username, {onDelete: 'cascade'}),
         primary: boolean('primary').notNull().default(false),
-        phoneAllowed: boolean('phone_allowed').notNull().default(false),
-        phoneCountryCode: text('phone_country_code').notNull().default('+49'),
-        phoneNumber: text('phone_number').notNull().default(''),
     },
 )

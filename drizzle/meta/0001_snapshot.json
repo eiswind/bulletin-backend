@@ -1,6 +1,6 @@
 {
-  "id": "294840a1-1678-4f78-b759-1922b280eb09",
-  "prevId": "2dddace9-4f2e-4f88-8a10-dd1f070b6e1c",
+  "id": "6f13cb32-6edd-4cc4-bffe-fcf66dac6861",
+  "prevId": "daa0e809-673b-4274-8ca0-b98625b924a6",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -117,13 +117,36 @@
           "name": "firstname",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "''"
         },
         "lastname": {
           "name": "lastname",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "''"
+        },
+        "phone_allowed": {
+          "name": "phone_allowed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "phone_country_code": {
+          "name": "phone_country_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'+49'"
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
         }
       },
       "indexes": {},

@@ -17,7 +17,11 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
                 const profileResult = await db().select({
                     username: user.username,
                     firstname: user.firstname,
-                    lastname: user.lastname
+                    lastname: user.lastname,
+                    phoneAllowed: user.phoneAllowed,
+                    phoneCountryCode: user.phoneCountryCode,
+                    phoneNumber: user.phoneNumber,
+
                 }).from(user).where(eq(user.username, username)).execute()
                 if (!profileResult || profileResult.length === 0) {
                     return status(404, 'User not found')
@@ -30,9 +34,6 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
                 const contactsResult = await db().select({
                     email: contact.email,
                     primary: contact.primary,
-                    phoneAllowed: contact.phoneAllowed,
-                    phoneCountryCode: contact.phoneCountryCode,
-                    phoneNumber: contact.phoneNumber,
                 }).from(contact).where(eq(contact.user, username)).execute()
                 return {...profileUser, contacts: contactsResult}
             },
@@ -55,7 +56,10 @@ export const createProfilePlugin = (options: { db: DrizzleDb }) => {
                 return await db().transaction(async (tx) => {
                     const profileResult = await tx.update(user).set({
                         firstname: body.firstname,
-                        lastname: body.lastname
+                        lastname: body.lastname,
+                        phoneAllowed: body.phoneAllowed,
+                        phoneCountryCode: body.phoneCountryCode,
+                        phoneNumber: body.phoneNumber,
                     }).where(eq(user.username, username)).returning()
                     const profileUser = profileResult[0]
                     if (!profileUser) {

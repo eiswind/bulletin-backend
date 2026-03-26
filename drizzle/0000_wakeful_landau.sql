@@ -15,8 +15,11 @@ CREATE TABLE "message" (
 CREATE TABLE "user" (
 	"username" text NOT NULL,
 	"password" text NOT NULL,
-	"firstname" text NOT NULL,
-	"lastname" text NOT NULL,
+	"firstname" text DEFAULT '' NOT NULL,
+	"lastname" text DEFAULT '' NOT NULL,
+	"phone_allowed" boolean DEFAULT false NOT NULL,
+	"phone_country_code" text DEFAULT '+49' NOT NULL,
+	"phone_number" text DEFAULT '' NOT NULL,
 	CONSTRAINT "user_username_unique" UNIQUE("username")
 );
 --> statement-breakpoint
