@@ -33,13 +33,13 @@ describe("Profile", () => {
             username: 'user',
             firstname: 'John',
             lastname: 'Doe',
+            phoneAllowed: true,
+            phoneCountryCode: '+49',
+            phoneNumber: '1234567890',
             contacts: [
                 {
                     email: 'email@test.de',
                     primary: true,
-                    phoneAllowed: true,
-                    phoneCountryCode: '+49',
-                    phoneNumber: '1234567890'
                 },
             ]
         }
@@ -77,16 +77,16 @@ describe("Profile", () => {
         const testContact = {
             user: 'user',
             email: 'test@test.de',
-            primary: true,
-            phoneAllowed: true,
-            phoneCountryCode: '+49',
-            phoneNumber: '1234567890'
+            primary: true
         }
 
         await db.insert(contact).values(testContact).execute()
         await db.update(user).set({
             firstname: 'John',
-            lastname: 'Doe'
+            lastname: 'Doe',
+            phoneAllowed: true,
+            phoneCountryCode: '+49',
+            phoneNumber: '1234567890'
         }).where(eq(user.username, testContact.user)).execute()
 
         const response = await app

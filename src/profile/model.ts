@@ -3,15 +3,16 @@ import {Elysia, t} from "elysia";
 export const contactDTO = t.Object({
     email: t.String(),
     primary: t.Boolean(),
-    phoneAllowed: t.Boolean(),
-    phoneCountryCode: t.String(),
-    phoneNumber: t.String(),
+
 })
 
 export const profileDTO = t.Object({
     username: t.String(),
     firstname: t.String(),
     lastname: t.String(),
+    phoneAllowed: t.Boolean(),
+    phoneCountryCode: t.String(),
+    phoneNumber: t.String(),
     contacts: t.Array( t.Ref('ContactDTO'))
 })
 
