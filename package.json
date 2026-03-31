@@ -25,7 +25,7 @@
     "@elysiajs/bearer": "^1.4.3",
     "@elysiajs/node": "^1.4.4",
     "@elysiajs/openapi": "^1.4.14",
-    "@sinclair/typebox": "0.34.48",
+    "@sinclair/typebox": "0.34.49",
     "@types/bcrypt": "^6.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.13",
