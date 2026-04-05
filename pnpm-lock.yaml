@@ -13,7 +13,7 @@ importers:
         version: 0.1.10(elysia@1.4.28(@sinclair/typebox@0.34.49)(exact-mirror@0.2.7(@sinclair/typebox@0.34.49))(file-type@21.3.2)(openapi-types@12.1.3)(typescript@6.0.2))(pino@10.3.1)
       '@electric-sql/pglite':
         specifier: ^0.4.0
-        version: 0.4.2
+        version: 0.4.3
       '@elysiajs/bearer':
         specifier: ^1.4.3
         version: 1.4.3(elysia@1.4.28(@sinclair/typebox@0.34.49)(exact-mirror@0.2.7(@sinclair/typebox@0.34.49))(file-type@21.3.2)(openapi-types@12.1.3)(typescript@6.0.2))
@@ -40,10 +40,10 @@ importers:
         version: 6.0.0
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@electric-sql/pglite@0.4.2)
+        version: 0.45.2(@electric-sql/pglite@0.4.3)
       drizzle-typebox:
         specifier: ^0.3.3
-        version: 0.3.3(@sinclair/typebox@0.34.49)(drizzle-orm@0.45.2(@electric-sql/pglite@0.4.2))
+        version: 0.3.3(@sinclair/typebox@0.34.49)(drizzle-orm@0.45.2(@electric-sql/pglite@0.4.3))
       elysia:
         specifier: ^1.4.25
         version: 1.4.28(@sinclair/typebox@0.34.49)(exact-mirror@0.2.7(@sinclair/typebox@0.34.49))(file-type@21.3.2)(openapi-types@12.1.3)(typescript@6.0.2)
@@ -102,8 +102,8 @@ packages:
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
 
-  '@electric-sql/pglite@0.4.2':
-    resolution: {integrity: sha512-1GUUl/MZpy5QWgWisD3Epho3GkJrZ1MzVgQpo2pifQWUs96F9rXKZxeVLPhkwFYck34CH/kQ8lis6wX9ifn3kg==}
+  '@electric-sql/pglite@0.4.3':
+    resolution: {integrity: sha512-ichuWTgtd4mOM1G4SpyGJa5trT03lWbMypDV0fUXUCXg5hiHqVAz/bZyV68NqmkLB7WcYmj1RMJVSp8HV/v/ZQ==}
 
   '@elysiajs/bearer@1.4.3':
     resolution: {integrity: sha512-UWJ94jGGOzSlD3CCspC11/vFGKwy6RI9QvaZVPzlSu1Wxp/pKmOhKA+R2ppfbluMHXfxcc2xgK3x4+uuCML7GA==}
@@ -2341,7 +2341,7 @@ snapshots:
 
   '@drizzle-team/brocli@0.10.2': {}
 
-  '@electric-sql/pglite@0.4.2': {}
+  '@electric-sql/pglite@0.4.3': {}
 
   '@elysiajs/bearer@1.4.3(elysia@1.4.28(@sinclair/typebox@0.34.49)(exact-mirror@0.2.7(@sinclair/typebox@0.34.49))(file-type@21.3.2)(openapi-types@12.1.3)(typescript@6.0.2))':
     dependencies:
@@ -3244,14 +3244,14 @@ snapshots:
       esbuild: 0.25.12
       tsx: 4.21.0
 
-  drizzle-orm@0.45.2(@electric-sql/pglite@0.4.2):
+  drizzle-orm@0.45.2(@electric-sql/pglite@0.4.3):
     optionalDependencies:
-      '@electric-sql/pglite': 0.4.2
+      '@electric-sql/pglite': 0.4.3
 
-  drizzle-typebox@0.3.3(@sinclair/typebox@0.34.49)(drizzle-orm@0.45.2(@electric-sql/pglite@0.4.2)):
+  drizzle-typebox@0.3.3(@sinclair/typebox@0.34.49)(drizzle-orm@0.45.2(@electric-sql/pglite@0.4.3)):
     dependencies:
       '@sinclair/typebox': 0.34.49
-      drizzle-orm: 0.45.2(@electric-sql/pglite@0.4.2)
+      drizzle-orm: 0.45.2(@electric-sql/pglite@0.4.3)
 
   dunder-proto@1.0.1:
     dependencies:
