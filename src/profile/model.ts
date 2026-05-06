@@ -1,12 +1,12 @@
 import {Elysia, t} from "elysia";
 
-export const contactDTO = t.Object({
+const contactDTO = t.Object({
     email: t.String(),
     primary: t.Boolean(),
 
 })
 
-export const profileDTO = t.Object({
+const profileDTO = t.Object({
     username: t.String(),
     firstname: t.String(),
     lastname: t.String(),

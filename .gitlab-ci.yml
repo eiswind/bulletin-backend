@@ -52,6 +52,7 @@ test:
     - "pnpm run lint"
     - "pnpm run test"
     - "pnpm run build"
+    - "pnpm run knip"
   artifacts:
     paths:
       - '__openapi__'

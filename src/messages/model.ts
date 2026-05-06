@@ -1,6 +1,6 @@
 import {Elysia, t} from "elysia";
 
-export const messageDTO = t.Object({
+const messageDTO = t.Object({
     text: t.String({readOnly: true}),
     createdAt: t.Optional(t.String({
         format: 'date-time',
@@ -11,7 +11,7 @@ export const messageDTO = t.Object({
 })
 
 
-export const createOrEditMessageDTO = t.Object({
+const createOrEditMessageDTO = t.Object({
     text: t.String(),
     likes: t.Number()
 })
