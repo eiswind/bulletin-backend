@@ -18,7 +18,7 @@
   "author": "",
   "type": "module",
   "license": "ISC",
-  "packageManager": "pnpm@10.33.2",
+  "packageManager": "pnpm@11.0.8",
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",
     "@electric-sql/pglite": "^0.4.5",
