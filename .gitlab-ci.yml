@@ -82,10 +82,10 @@ openapi:
     - "pnpm install --frozen-lockfile"
     - "pnpm run generate:openapi"
     - "cd $CI_PROJECT_DIR/__openapi__/angular-client"
-    - "pnpm install"
+    - "pnpm --ignore-workspace install"
     - "pnpm run build"
     - "cd $CI_PROJECT_DIR/__openapi__/fetch-client"
-    - "pnpm install"
+    - "pnpm --ignore-workspace install"
     - "pnpm run build"
   artifacts:
     paths:
