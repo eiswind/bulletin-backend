@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get install -yq curl wget gnupg  libz-dev zip unzip build-essential && \
     wget -q -O - https://download.bell-sw.com/pki/GPG-KEY-bellsoft | apt-key add - && \
     echo "deb [arch=amd64] https://apt.bell-sw.com/ stable main" | tee /etc/apt/sources.list.d/bellsoft.list && \
-    curl -sL https://deb.nodesource.com/setup_24.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_26.x | bash - && \
     apt-get update && \
     apt-get install -yq nodejs $JAVA_PACKAGE
 RUN corepack enable && corepack prepare pnpm@latest --activate
