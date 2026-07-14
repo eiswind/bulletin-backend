@@ -1,23 +1,23 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 ARG JAVA_PACKAGE='bellsoft-java25'
-
 ARG USERNAME=develop
-ARG USER_UID=1000
-ARG USER_GID=1001
-
-SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update && \
-    apt-get install -yq curl wget gnupg  libz-dev zip unzip build-essential && \
-    wget -q -O - https://download.bell-sw.com/pki/GPG-KEY-bellsoft | apt-key add - && \
-    echo "deb [arch=amd64] https://apt.bell-sw.com/ stable main" | tee /etc/apt/sources.list.d/bellsoft.list && \
-    curl -sL https://deb.nodesource.com/setup_26.x | bash - && \
+    apt-get install -yq curl wget gnupg && \
+    mkdir -m 0755 -p /etc/apt/keyrings/ && \
+    wget -q -O - https://download.bell-sw.com/pki/GPG-KEY-bellsoft | gpg --dearmor | tee /etc/apt/keyrings/GPG-KEY-bellsoft.gpg > /dev/null && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/GPG-KEY-bellsoft.gpg] https://apt.bell-sw.com/ stable main" |  tee /etc/apt/sources.list.d/bellsoft.list && \
+    curl -sL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get update && \
-    apt-get install -yq nodejs $JAVA_PACKAGE
-RUN npm i -g corepack
-RUN corepack enable && corepack prepare pnpm@latest --activate
-RUN apt-get clean
+    apt-get install -yq nodejs $JAVA_PACKAGE && \
+    npx playwright install-deps && \
+    corepack enable && corepack prepare pnpm@latest --activate && \
+    apt-get clean
+
 
 RUN usermod -l $USERNAME ubuntu
-
+RUN groupmod --new-name $USERNAME ubuntu
+RUN mv /home/ubuntu /home/$USERNAME
+RUN usermod -d /home/$USERNAME $USERNAME
 USER $USERNAME:$USERNAME
+
