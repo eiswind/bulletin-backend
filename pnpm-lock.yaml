@@ -77,7 +77,7 @@ importers:
         version: 2.7.0
       knip:
         specifier: ^6.12.0
-        version: 6.28.0
+        version: 6.29.0
       tsx:
         specifier: ^4.21.0
         version: 4.23.1
@@ -2072,8 +2072,8 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  knip@6.28.0:
-    resolution: {integrity: sha512-ODf1vR/Y/04T857Y6YG8wzIS0CufdnRVQ8Jk8Z3RXc4xZYM6N1RTi39O6BarDL8K5taLzytO8bPbiR6iCYjxFw==}
+  knip@6.29.0:
+    resolution: {integrity: sha512-A3kXqSBky1tWBAqiU9srdtu0Larhzkuyor0aD/gg+ToiqyBncCCs2Q60sLsxmcKhV0OsKss9LV0hMPpwLv711Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -4260,7 +4260,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  knip@6.28.0:
+  knip@6.29.0:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.5)
       formatly: 0.3.0
