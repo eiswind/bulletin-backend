@@ -1,6 +1,6 @@
 FROM ubuntu:26.04
 ARG JAVA_PACKAGE='bellsoft-java25'
-ARG USERNAME=develop
+ARG USERNAME=ubuntu
 
 RUN apt-get update && \
     apt-get install -yq curl wget gnupg && \
@@ -15,9 +15,6 @@ RUN apt-get update && \
     apt-get clean
 
 
-RUN usermod -l $USERNAME ubuntu
-RUN groupmod --new-name $USERNAME ubuntu
-RUN mv /home/ubuntu /home/$USERNAME
-RUN usermod -d /home/$USERNAME $USERNAME
+
 USER $USERNAME:$USERNAME
 
