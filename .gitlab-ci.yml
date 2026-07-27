@@ -40,7 +40,7 @@ test:
   image:
     name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
     docker:
-      user: develop
+      user: ubuntu
   stage: test
   cache:
     key: ${CI_COMMIT_REF_SLUG}
@@ -64,7 +64,7 @@ openapi:
   image:
     name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
     docker:
-      user: develop
+      user: ubuntu
   stage: openapi
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -95,7 +95,7 @@ publish:
   image:
     name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
     docker:
-      user: develop
+      user: ubuntu
   stage: openapi
   rules:
     - when: manual
