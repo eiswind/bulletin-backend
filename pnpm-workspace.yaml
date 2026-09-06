@@ -1,5 +1,9 @@
 allowBuilds:
   '@nestjs/core': false
   '@openapitools/openapi-generator-cli': false
+  '@parcel/watcher': false
   bcrypt: false
   esbuild: false
+
+packages:
+  - __openapi__/*
