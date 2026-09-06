@@ -83,10 +83,10 @@ openapi:
     - "pnpm run generate:openapi"
     - "cd $CI_PROJECT_DIR/__openapi__/angular-client"
     - "pnpm install --ignore-workspace --no-lockfile --ignore-scripts --config.strict-dep-builds=false"
-    - "pnpm run build"
+    - "pnpm --ignore-workspace --config.strict-dep-builds=false run build"
     - "cd $CI_PROJECT_DIR/__openapi__/fetch-client"
     - "pnpm install --ignore-workspace --no-lockfile --ignore-scripts --config.strict-dep-builds=false"
-    - "pnpm run build"
+    - "pnpm --ignore-workspace --config.strict-dep-builds=false run build"
   artifacts:
     paths:
       - '__openapi__'
