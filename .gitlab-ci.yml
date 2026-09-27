@@ -81,6 +81,7 @@ openapi:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
     - "pnpm run generate:openapi"
+    - "pnpm install --lockfile-only"
     - 'pnpm --filter "@eiswind-training-packages/bulletin-api-**" run build'
 
   artifacts:
