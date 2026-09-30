@@ -1,0 +1,19 @@
+[tools]
+java = "25"
+node = "24"
+
+[settings]
+# Read the pnpm version from package.json
+idiomatic_version_file_enable_tools = ['pnpm']
+experimental = true
+
+[env]
+_.path = ['{{config_root}}/node_modules/.bin']
+
+[oci]
+from = "ubuntu:26.04"
+tag = "{{env.CI_REGISTRY}}/{{env.CI_PROJECT_PATH}}/ci-build"
+user        = "1000:1000"
+user_id     = 1000
+group_id    = 1000
+
