@@ -17,35 +17,18 @@ stages:
   - docker
 
 
-build-ci-image:
-  cache: [ ]
-  stage: prepare
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: always
-    - when: manual
-      allow_failure: true
-  image:
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:cli
-  services:
-    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:dind
-      alias: docker
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - cd .build-image
-    - docker build -t $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build:latest .
-    - docker push $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build:latest
+include:
+  - project: "eiswind/mise-build-image"
+    ref: "main"
+    file: "ci-templates/build-ci-image.yml"
+
+image:
+  name: $CI_REGISTRY_IMAGE/ci-build
+  docker:
+    user: ubuntu
 
 test:
-  image:
-    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
-    docker:
-      user: ubuntu
   stage: test
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - .pnpm-store/
   script:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
@@ -61,10 +44,6 @@ test:
       - 'node_modules'
 
 openapi:
-  image:
-    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
-    docker:
-      user: ubuntu
   stage: openapi
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -73,26 +52,17 @@ openapi:
       allow_failure: true
   needs:
     - test
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - .pnpm-store/
   script:
     - "pnpm config set store-dir $CI_PROJECT_DIR/.pnpm-store"
     - "pnpm install --frozen-lockfile"
     - "pnpm run generate:openapi"
     - "pnpm install --lockfile-only"
     - 'pnpm --filter "@eiswind-training-packages/bulletin-api-**" run build'
-
   artifacts:
     paths:
       - '__openapi__'
 
 publish:
-  image:
-    name: $CI_REGISTRY/training/bulletin-backend/bulletin-backend-build
-    docker:
-      user: ubuntu
   stage: openapi
   rules:
     - when: manual
