@@ -1,6 +1,6 @@
 [tools]
 java = "25"
-node = "24"
+node = "26"
 
 [settings]
 # Read the pnpm version from package.json

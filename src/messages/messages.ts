@@ -42,7 +42,7 @@ export const createMessagesPlugin = (options: { db: DrizzleDb }) => {
                 detail: {
                     tags: ['Message'],
                     operationId: 'findMessageById',
-                    summary: 'Get all messages'
+                    summary: 'Get message by id'
                 }
             }
         )
