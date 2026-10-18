@@ -1,4 +1,4 @@
-FROM node:24
+FROM node:26
 ENTRYPOINT ["node", "/usr/src/app/dist/server.js"]
 EXPOSE 3000
 
