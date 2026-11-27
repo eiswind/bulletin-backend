@@ -21,7 +21,7 @@
   "packageManager": "pnpm@12.23.0",
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",
-    "@electric-sql/pglite": "^0.5.0",
+    "@electric-sql/pglite": "^0.6.0",
     "@elysiajs/bearer": "^1.4.4",
     "@elysiajs/node": "^1.4.5",
     "@elysiajs/openapi": "^1.4.15",
